@@ -30,7 +30,7 @@
                 <h3 class="current-day" id="current-day">Today, Jun 30</h3>
             </div>
             <p></p>
-            <div class="basic-2">
+            <div class="basic-2" id="basic-2">
                     <img src="./images/cludy.svg" alt="weather" class="weather" id="weather-image">
                     <div class="flex-right">
                         <h1 class="temperature temp" id="temp">10</h1>
@@ -73,11 +73,16 @@
                 </div>
 
             </div>
-            
+
             <input type="range" min="1" max="7" value="1" class="slider">
 
             <div class="hours swiper mySwiper" id="anim">
                 <div class="swiper-wrapper">
+                    <div class="hours-block swiper-slide">
+                        <p>0:00</p>
+                        <img src="./images/rainy.svg" alt="icon">
+                        <p class="hourly">19 °</p>
+                    </div>
                     <div class="hours-block swiper-slide">
                         <p>1:00</p>
                         <img src="./images/rainy.svg" alt="icon">

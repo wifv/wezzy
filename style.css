@@ -83,6 +83,19 @@ body {
 
 .weather {
     scale: 1.6;
+    width: 20px;
+}
+
+#weather-image {
+    width: 130px;
+    position: relative;
+    top: 10px;
+}
+
+.hours-block img {
+    max-width: 30px;
+    scale: 2;
+    margin: 10px;
 }
 
 #location {
@@ -369,6 +382,7 @@ body {
     display: flex;
     flex-direction: column;
     align-items: center;
+    text-align: center;
 }
 
 #today,

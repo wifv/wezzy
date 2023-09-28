@@ -77,6 +77,8 @@ async function checkWeatherTomorrow(city) {
     for(let i = 0; i<24; i++) {
         array[i].innerText = Math.round(data.forecast.forecastday[1].hour[i].temp_c) + " °";
     }
+    console.log(array.length);
+
 }
     
 async function checkWeather(city) {
@@ -121,10 +123,25 @@ async function checkWeather(city) {
 
     console.log(data.forecast.forecastday[0].day.condition.text);
     
-    if(String(data.forecast.forecastday[0].day.condition.text) == "Sunny") {
-        weatherImage.src = "./images/sunny.svg"
+    switch(data.forecast.forecastday[0].day.condition.text.toLowerCase()) {
+        case "sunny":
+            weatherImage.src = "./images/sunny.svg";
+            document.getElementById("basic-2").style.position = "relative"
+            document.getElementById("basic-2").style.bottom = "20px"
+            break;
+        case "snowy":
+            weatherImage.src = "./images/sunny.svg";
+            break;
+        case "partly cloudy":
+            weatherImage.src = "./images/cludy.svg";
+            break;
+        case "rainy":
+            weatherImage.src = "./images/rainy.svg";
+            break;
+        case "windy":
+            weatherImage.src = "./images/windy.svg";
+            break;
     }
-    
 }
 
 searchBtn.addEventListener("click", () => {
@@ -160,3 +177,5 @@ checkWeather("Tashkent");
 setInterval(() => {
     checkWeather("Tashkent")
 }, (1000*3600));
+
+
