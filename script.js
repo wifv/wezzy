@@ -19,6 +19,7 @@ searchBox.addEventListener("keyup", key => {
 })
 
 document.getElementById("right-1").addEventListener("click", () => {
+    checkWeatherTomorrow(defaultCity());
     if(document.getElementById("week").style.display == "block") {
         document.getElementById("main-thing").style.display = "block";
         document.getElementById("week").style.display = "none";
@@ -29,6 +30,7 @@ document.getElementById("right-1").addEventListener("click", () => {
 })
 
 document.getElementById("back-arrow").addEventListener("click", () => {
+    checkWeather(defaultCity());
     if(document.getElementById("week").style.display == "block") {
         document.getElementById("main-thing").style.display = "block";
         document.getElementById("week").style.display = "none";
@@ -37,8 +39,6 @@ document.getElementById("back-arrow").addEventListener("click", () => {
         document.getElementById("week").style.display = "block";
     }
 })
-
-
 
 
 const url = 'https://weatherapi-com.p.rapidapi.com/forecast.json?';
@@ -75,10 +75,29 @@ async function checkWeatherTomorrow(city) {
     let array = document.querySelectorAll(".hourly");
     
     for(let i = 0; i<24; i++) {
-        array[i].innerText = Math.round(data.forecast.forecastday[1].hour[i].temp_c) + " °";
+        array[i].innerText = String(Math.round(data.forecast.forecastday[1].hour[i].temp_c)) + " °";
     }
     console.log(array.length);
 
+    switch(data.forecast.forecastday[0].day.condition.text.toLowerCase()) {
+        case "sunny":
+            weatherImage.src = "./images/sunny.svg";
+            document.getElementById("basic-2").style.position = "relative"
+            document.getElementById("basic-2").style.bottom = "20px"
+            break;
+        case "snowy":
+            weatherImage.src = "./images/sunny.svg";
+            break;
+        case "partly cloudy":
+            weatherImage.src = "./images/cludy.svg";
+            break;
+        case "rainy":
+            weatherImage.src = "./images/rainy.svg";
+            break;
+        case "windy":
+            weatherImage.src = "./images/windy.svg";
+            break;
+    }
 }
     
 async function checkWeather(city) {
@@ -144,6 +163,38 @@ async function checkWeather(city) {
     }
 }
 
+// function checkHourly(data, day) {
+//     let dayAlter;
+
+//     if(day == "tomorrow") {
+//         dayAlter = 1;
+//     } else if(day == "DAT") {
+//         dayAlter = 2;
+//     } else {
+//         dayAlter = 0;
+//     }
+//     let array = document.querySelectorAll(".hourly-image");
+//     for(let i = 0; i<24; i++) {
+//         switch(data.forecast.forecastday[dayAlter].hour[i]) {
+//             case "sunny":
+//                 array[i].src = "./images/sunny.svg";
+//                 break;
+//             case "snowy":
+//                 array[i].src = "./images/sunny.svg";
+//                 break;
+//             case "partly cloudy":
+//                 array[i].src = "./images/cludy.svg";
+//                 break;
+//             case "rainy":
+//                 array[i].src = "./images/rainy.svg";
+//                 break;
+//             case "windy":
+//                 array[i].src = "./images/windy.svg";
+//                 break;
+//         }
+//     }
+// }
+
 searchBtn.addEventListener("click", () => {
     if(search.value != "") checkWeather(search.value);
 })
@@ -151,31 +202,30 @@ searchBtn.addEventListener("click", () => {
 const tomorrow = document.getElementById('tomorrow');
 
 tomorrow.addEventListener("click", () => {
-    if(search.value == "" || search.value == null) {
-        checkWeatherTomorrow("tashkent");
-    } else {
-        checkWeatherTomorrow(search.value)
-    }
-    tomorrow.style.color = "black"
-    today.style.color = "#D6996B"
+    checkWeatherTomorrow(defaultCity());
+    tomorrow.style.color = "black";
+    today.style.color = "#D6996B";
 })
 
 const today = document.getElementById('today');
 
 today.addEventListener("click", () => {
-    if(search.value == "" || search.value == null) {
-        checkWeather("tashkent");
-    } else {
-        checkWeather(search.value);
-    }
-    today.style.color = "black"
-    tomorrow.style.color = "#D6996B"
+    checkWeather(defaultCity())
+    today.style.color = "black";
+    tomorrow.style.color = "#D6996B";
 })
 
 checkWeather("Tashkent");
 
 setInterval(() => {
-    checkWeather("Tashkent")
+    checkWeather(defaultCity());
 }, (1000*3600));
 
 
+function defaultCity() {
+    if(search.value == "" || search.value == null) {
+        return "Tashkent";
+    } else {
+        return search.value;
+    }
+}
