@@ -53,7 +53,7 @@ const options = {
 async function checkWeatherTomorrow(city) {
     const response = await fetch(url + "q=" + city + "&days=7", options);
     let data = await response.json();
-    console.log(data)
+    // console.log(data)
     
     document.getElementById("location").innerText = data.location.name + ",\n" + data.location.country;
     
@@ -77,7 +77,7 @@ async function checkWeatherTomorrow(city) {
     for(let i = 0; i<24; i++) {
         array[i].innerText = String(Math.round(data.forecast.forecastday[1].hour[i].temp_c)) + " °";
     }
-    console.log(array.length);
+    // console.log(array.length);
 
     switch(data.forecast.forecastday[0].day.condition.text.toLowerCase()) {
         case "sunny":
@@ -103,8 +103,8 @@ async function checkWeatherTomorrow(city) {
 async function checkWeather(city) {
     const response = await fetch(url + "q=" + city + "&days=7", options);
     let data = await response.json();
-    console.log(data)
-    
+    // console.log(data)
+
     document.querySelectorAll(".location").forEach(element => {
         element.innerText = data.location.name + ",\n" + data.location.country;
     });
@@ -140,8 +140,8 @@ async function checkWeather(city) {
         array[i].innerText = String(Math.round(data.forecast.forecastday[0].hour[i].temp_c)) + " °";
     }
 
-    console.log(data.forecast.forecastday[0].day.condition.text);
-    
+    // console.log(data.forecast.forecastday[0].day.condition.text);
+
     switch(data.forecast.forecastday[0].day.condition.text.toLowerCase()) {
         case "sunny":
             weatherImage.src = "./images/sunny.svg";
